@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 1: Statistics in Cybersecurity</title>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        /* Questo CSS è specifico per questa pagina */
+        body.page-hw1 {
+            max-width: 900px; /* Limita la larghezza del testo */
+            margin: 20px auto;  /* Centra la pagina */
+            padding: 20px;
+            background-color: #fff; /* Sfondo bianco per la pagina */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        body.page-hw1 h1, body.page-hw1 h2 {
+            text-align: left; /* Allinea a sinistra per la lettura */
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        body.page-hw1 h3 {
+            color: #0056b3;
+            margin-top: 25px;
+        }
+        body.page-hw1 p, body.page-hw1 ul {
+            max-width: none; /* Rimuove il limite precedente */
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 0; /* Rimuove i margini auto */
+            margin-right: 0;
+        }
+        body.page-hw1 ul {
+            padding-left: 25px; /* Aggiunge rientro alla lista */
+        }
+    </style>
+</head>
+<body class="page-hw1"> <h1>Homework 1: Statistics and Cybersecurity</h1>
+    <hr>
+
+    <h2>What is Statistics?</h2>
+    <p>
+        Statistics is a powerful branch of mathematics that involves the **collection, analysis, interpretation, presentation, and organization of data**. At its core, it is the science of learning from data. It provides methods to make sense of large, complex datasets and to make decisions in the face of uncertainty.
+    </p>
+    <p>
+        Instead of just looking at individual data points, statistics helps us understand the "big picture," identify underlying patterns, and quantify the reliability of our conclusions.
+    </p>
+    
+    <h3>The Two Main Branches of Statistics</h3>
+    <ul>
+        <li>
+            <strong>Descriptive Statistics:</strong> This involves summarizing and describing the main features of a dataset. We use measures like the **mean (average)**, **median (middle value)**, and **mode (most frequent value)** to understand its center. We also use measures like **range** and **standard deviation** to understand its spread or variability. (e.g., "The average number of login attempts per user today was 3.2").
+        </li>
+        <li>
+            <strong>Inferential Statistics:</strong> This is where we go a step further. We use data from a smaller sample (e.g., 10,000 network packets) to make educated guesses, or *inferences*, about a much larger population (e.g., all network traffic). This includes things like **hypothesis testing** (e.g., "Is this spike in traffic a real attack or just random chance?") and **regression analysis** (e.g., "Can we predict the number of security incidents based on the number of unpatched systems?").
+        </li>
+    </ul>
+
+    <h2>Why can it be useful for Cybersecurity?</h2>
+    <p>
+        Modern cybersecurity is a battle of data. Security systems generate a massive, overwhelming ocean of data every second—logs, network traffic, file access, user activity, etc. It's impossible for a human to review it all.
+    </p>
+    <p>
+        Statistics is the toolset that allows us to turn this flood of data into **actionable intelligence**. It helps us separate the "noise" (normal activity) from the "signal" (a potential threat).
+    </p>
+
+    <h3>1. Anomaly Detection and Baselining</h3>
+    <p>
+        Before you can catch a "bad guy," you have to know what "good" looks like. Statistics is used to create a **baseline** of normal behavior for every user, server, and network device. This model might include:
+    </p>
+    <ul>
+        <li>What time does a user normally log in?</li>
+        <li>How much data do they typically download?</li>
+        <li>Which servers do they usually access?</li>
+    </ul>
+    <p>
+        An **anomaly** is a statistically significant deviation from this baseline (e.g., a user logging in at 3 AM from a new country and downloading 50GB of data). This is the core idea behind many **User and Entity Behavior Analytics (UEBA)** systems.
+    </p>
+
+    <h3>2. Intrusion Detection Systems (IDS)</h3>
+    <p>
+        While some IDS look for known "signatures" of attacks, more advanced systems (Anomaly-based IDS) use statistics. They analyze network traffic patterns in real-time, monitoring variables like packet size, protocols used, and connection frequency. A sudden, statistically improbable change in these patterns can indicate an intrusion, such as a denial-of-service (DDoS) attack or a network scanning attempt.
+    </p>
+
+    <h3>3. Quantitative Risk Assessment</h3>
+    <p>
+        Companies have limited security budgets. Where should they invest? Statistics helps quantify risk. By analyzing historical data and industry trends, we can estimate:
+    </p>
+    <ul>
+        <li>The **probability** of a specific event (e.g., a ransomware attack).</li>
+        <li>The **potential financial impact** of that event.</li>
+    </ul>
+    <p>
+        This allows organizations to move from a vague "we're worried about hackers" to a data-driven "We must invest in email security, as phishing represents our highest-probability, high-impact risk."
+    </p>
+
+    <h3>4. Spam and Phishing Filters</h3>
+    <p>
+        Your email filter is a prime example of statistics in action. It uses a statistical model called a **Bayesian classifier**. This model calculates the *probability* that an email is spam given the words it contains. For example, the presence of words like "free," "viagra," or "urgent prize" statistically increases the probability of it being spam, while the presence of your colleagues' names decreases it.
+    </p>
+
+    <h3>5. Malware Analysis and Heuristics</h3>
+    <p>
+        Antivirus software can't just rely on a list of known viruses. New malware is created every day. **Heuristic analysis** uses statistics to detect *new* threats. It scans a file and looks for suspicious *characteristics* (e.g., "Does this file try to modify system settings?" or "Does it try to encrypt files?"). By statistically comparing these features to a model of known malware, the antivirus can assign a probability score and flag the file as "likely malicious" even if it's never seen it before.
+    </p>
+    
+    <h3>6. Digital Forensics and Incident Response</h3>
+    <p>
+        After a breach, investigators are faced with terabytes of log data. Statistics helps them find the "needle in a haystack." By aggregating and visualizing data, they can ask questions like, "Show me all outbound connections that happened between 2:00 AM and 3:00 AM" or "What was the most common command run on this server?" Statistical analysis helps an analyst quickly pinpoint the attacker's activity and build a timeline of the breach.
+    </p>
+
+    <br>
+    <a href="../index.html">← Back to Home</a>
+
+</body>
+</html>
