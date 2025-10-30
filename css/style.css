@@ -1,57 +1,105 @@
+/* --- Stili Globali --- */
+
+html {
+    /* Sfondo grigio molto chiaro per l'intera finestra */
+    background-color: #f4f4f4; 
+    font-size: 100%;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 20px;
+    /* Font sans-serif standard per la leggibilità */
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.6;
+    
+    /* Colore del testo principale: un grigio scuro, non nero puro */
+    color: #333; 
+
+    /* --- Stili per il Layout --- */
+    
+    /* Il "foglio" centrale per il contenuto */
+    max-width: 900px; 
+    margin: 30px auto; 
+    padding: 30px; 
+    
+    /* Sfondo bianco per il "foglio" */
+    background-color: #ffffff; 
+    border-radius: 8px; 
+    
+    /* Ombra grigia molto leggera */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-h1, h2 {
-    text-align: center;
-    color: #333;
+/* --- Stili per i Titoli --- */
+
+h1 {
+    /* Nero puro per il titolo principale, per un forte contrasto */
+    color: #000000; 
+    font-size: 2.2em;
+    border-bottom: 2px solid #eeeeee; /* Linea di separazione grigio chiaro */
+    padding-bottom: 10px;
 }
 
-/* Stile per i contenuti di hw1.html */
+h2 {
+    /* Grigio scuro per i sottotitoli */
+    color: #444444; 
+    font-size: 1.6em;
+    margin-top: 30px;
+}
+
+/* --- Stili per il Testo e le Liste --- */
+
 p, ul {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-bottom: 15px;
 }
 
-/* --- Stili per le Card --- */
-.container-card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+ul {
+    padding-left: 25px; 
 }
 
-.card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 20px;
-    width: 300px;
+li {
+    margin-bottom: 10px;
+}
+
+/* Testo in grassetto (<strong>) quasi nero */
+strong {
+    color: #111;
+}
+
+/* --- Stili per la Linea <hr> --- */
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd; /* Grigio medio */
+    margin: 25px 0;
+}
+
+/* --- Stili per il Link <a> --- */
+
+/* Nascondiamo il <br> prima del link */
+ul + br {
+    display: none;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none; /* Rimuove la sottolineatura */
+    
+    color: #ffffff; /* Testo bianco */
+    
+    /* Sfondo grigio scuro per il pulsante */
+    background-color: #a9a9a9; 
+    
+    padding: 10px 18px;
+    border-radius: 5px;
+    margin-top: 20px;
+    
+    /* Transizione per l'effetto hover */
+    transition: background-color 0.3s ease; 
+}
+
+/* Al passaggio del mouse, il pulsante diventa più scuro */
+a:hover {
+    background-color: #858585; /* Grigio ancora più scuro */
     text-decoration: none;
-    color: #333;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.card h3 {
-    margin-top: 0;
-    color: #0056b3;
-}
-
-.card p {
-    font-size: 14px;
-    padding: 0; /* Rimuove il padding specifico delle pagine */
-    margin: 0 auto; /* Rimuove i margini specifici delle pagine */
 }
