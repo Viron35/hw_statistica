@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 2</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="home-button">&larr; Back to Home</a>
+        <h1>Homework 2</h1>
+    </header>
+
+    <main>
+        
+        <section class="card">
+            
+            <h2>Explain the concept of dataset and distribution</h2>
+            
+            <h3>The Concept of a Dataset</h3>
+            <p>
+                A <strong>dataset</strong> is defined as a structured collection of data. 
+                This collection is treated as a single unit by a computer system or analytic process. 
+                Datasets are typically organized in a tabular format, such as a database table or a spreadsheet.
+            </p>
+            <p>
+                In this structure:
+            </p>
+            <ul>
+                <li><strong>Rows:</strong> Each row corresponds to a single observation or member of the set (e.g., one specific student, one transaction).</li>
+                <li><strong>Columns:</strong> Each column represents a particular <strong>variable</strong> or <strong>attribute</strong>, which is a specific characteristic measured for each observation (e.g., 'Age', 'Price', 'Temperature').</li>
+            </ul>
+            <p>
+                A dataset is characterized by its specific topic and the scope of the data it contains.
+            </p> <h3>The Concept of a Distribution</h3>
+            <p>
+                A <strong>data distribution</strong> is a fundamental concept in statistics that describes the arrangement and frequency of values for a variable. 
+                It summarizes how often each possible value (or range of values) in a dataset occurs.
+            </p>
+            <p>
+                Distributions are commonly visualized using tools like histograms for numerical data or bar charts for categorical data. These visualizations allow for the immediate identification of patterns, trends, and anomalies within the data.
+            </p>
+            
+        </section>
+        
+        <section class="card">
+            
+            <h2>Create a simple dataset and compute the K univariate distribution (K&lt;=3)</h2>
+
+            <p>
+                In this assignment, I created a simple dataset and computed its K=3 univariate distributions. 
+                The process involved data generation using Python and SQLite, data querying using SQL, 
+                and visualization using Python's <code>matplotlib</code> library.
+            </p>
+
+            <h3>Dataset Generation</h3>
+            <p>
+                First, I generated a sample dataset representing 100 fictional students (some of them in the image below). This data was 
+                stored in an SQLite database file.
+            </p>
+            <p>I defined three features (K=3) for this dataset:</p>
+            <ul>
+                <li><strong>Age:</strong> A numerical value between 18 and 25.</li>
+                <li><strong>Grade:</strong> A numerical, discrete value between 1 and 10.</li>
+                <li><strong>Major:</strong> A categorical value from 'Science', 'Arts', or 'Engineering'.</li>
+            </ul>
+            <p>
+                Used a Python script using the <code>sqlite3</code> 
+                library to interface with the database and the <code>random</code> library to 
+                populate the table with 100 random entries.
+            </p>
+            <img src="../dataset.png" alt="Dataset" style="width:30%; max-width:600px;">
+
+            <h3>Computing Distributions with SQL</h3>
+            <p>
+                To compute the distributions, I queried the database to aggregate the data. 
+            </p>
+            
+            <h4>Distribution 1: Age</h4>
+            <p>I executed the following query to count students of each age:</p>
+            <pre><code>SELECT age, COUNT(*) as frequency FROM Students GROUP BY age ORDER BY age;</code></pre>
+            <img src="../age_distribution.png" alt="Age Distribution histogram plot" style="width:50%; max-width:600px;">
+
+            <h4>Distribution 2: Grade (Numerical, Discrete)</h4>
+            <p>Similarly, I queried the frequency for each specific grade:</p>
+            <pre><code>SELECT grade, COUNT(*) as frequency FROM Students GROUP BY grade ORDER BY grade;</code></pre>
+            <img src="../grade_distribution.png" alt="Grade Distribution bar chart" style="width:50%; max-width:600px;">
+
+            <h4>Distribution 3: Major (Categorical)</h4>
+            <p>Finally, I queried the counts for the categorical 'Major' feature:</p>
+            <pre><code>SELECT major, COUNT(*) as frequency FROM Students GROUP BY major;</code></pre>
+            <img src="../major_distribution.png" alt="Major Distribution bar chart" style="width:50%; max-width:600px;">
+            
+        </section>
+
+        <section class="card">
+            
+            <h2>With the small dataset of assignment 2, compute bivariate distribution. </h2>
+
+            <p>
+                Bivariate distribution on 'Age' and 'Major'.
+            </p>
+            <p>
+                This visualization allows for direct comparison.
+            </p>
+
+            <img src="../grouped_bar_age_major_count.png" alt="Grouped Bar Chart of Student Count by Age and Major" style="width:100%; max-width:700px;">
+
+        </section>
+
+        <section class="card">
+            
+            <h2>Take a text and compute the distribution of the letters. Then apply a Ceaser Cipher, and decode (using the "Language distribution") the encryption text assuming that you don't know the shift. </h2>
+            <p>
+                I implemented the <strong>Caesar Cipher</strong>, a simple substitution cipher 
+                where each letter is shifted by a fixed number of positions down the alphabet.
+            </p>
+            <p>
+                I have used a "Decoder" function. This function assumes the shift key is 
+                unknown. It works by iterating through all 26 possible shifts and, for each one, 
+                calculating the letter distribution of the "decrypted" text. The shift 
+                that produces a distribution *closest* to the standard is identified as the most likely key.
+            </p>
+
+            <h3>Interactive Demonstration</h3>
+            <div class="interactive-demo">
+                <div class="demo-group">
+                    <label for="cipherText">Input Text:</label>
+                    <textarea id="cipherText" rows="6" placeholder="Enter a long sample of English text here..."> Una delle due: o il pozzo era straordinariamente profondo o ella ruzzolava giù con grande lentezza, perchè ebbe tempo, cadendo, di guardarsi intorno e di pensar meravigliata alle conseguenze. Aguzzò gli occhi, e cercò di fissare il fondo, per scoprire qualche cosa; ma in fondo era buio pesto e non si scopriva nulla. Guardò le pareti del pozzo e s’accorse che erano rivestite di scaffali di biblioteche; e sparse qua e là di mappe e quadri, sospesi a chiodi. Mentre continuava a scivolare, afferrò un barattolo con un’eticchetta, lesse l’etichetta: “Marmellata d’Arance” ma, ohimè! con sua gran delusione, era vuoto; non volle lasciar cadere il barattolo per non ammazzare chi si fosse trovato in fondo, e quando arrivò più giù, lo depose su un altro scaffale.</textarea>
+                </div>
+
+                <div class="demo-group">
+                    <label for="cipherShift">Shift Key (0-25):</label>
+                    <input type="number" id="cipherShift" value="3" min="0" max="25">
+                </div>
+
+                <button id="runCipherBtn">Run Analysis</button>
+
+                <div class="demo-results">
+                    <div class="result-box">
+                        <h4>Original Text Distribution</h4>
+                        <canvas id="originalDistChart"></canvas>
+                    </div>
+                    <div class="result-box">
+                        <h4>Ciphered Text Distribution</h4>
+                        <canvas id="cipheredDistChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="final-result">
+                    <h4>Decoder Result</h4>
+                    <p id="foundKeyOutput"><strong>Found Shift Key:</strong> --</p>
+                </div>
+            </div>
+            </section>
+    </main>
+
+    <script src="../js/hw2.js"></script>
+
+</body>
+</html>

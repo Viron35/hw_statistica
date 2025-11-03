@@ -1,105 +1,228 @@
 /* --- Stili Globali --- */
-
-html {
-    /* Sfondo grigio molto chiaro per l'intera finestra */
-    background-color: #f4f4f4; 
-    font-size: 100%;
-}
-
 body {
-    /* Font sans-serif standard per la leggibilità */
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5; /* Sfondo grigio chiaro per l'intera pagina */
+    color: #333;
     line-height: 1.6;
-    
-    /* Colore del testo principale: un grigio scuro, non nero puro */
-    color: #333; 
-
-    /* --- Stili per il Layout --- */
-    
-    /* Il "foglio" centrale per il contenuto */
-    max-width: 900px; 
-    margin: 30px auto; 
-    padding: 30px; 
-    
-    /* Sfondo bianco per il "foglio" */
-    background-color: #ffffff; 
-    border-radius: 8px; 
-    
-    /* Ombra grigia molto leggera */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 0;
+    padding: 20px;
 }
 
-/* --- Stili per i Titoli --- */
+/* --- Layout Principale --- */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    position: relative; /* Necessario per posizionare il bottone home */
+}
 
-h1 {
-    /* Nero puro per il titolo principale, per un forte contrasto */
-    color: #000000; 
-    font-size: 2.2em;
-    border-bottom: 2px solid #eeeeee; /* Linea di separazione grigio chiaro */
+main {
+    max-width: 900px; /* Limita la larghezza per la leggibilità */
+    margin: 0 auto;   /* Centra il contenuto principale */
+}
+
+/* --- Bottone Home --- */
+.home-button {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+
+    /* Posizionamento */
+    position: absolute;
+    left: 0; /* Allineato a sinistra del contenitore 'main' (o 'header') */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+/* --- Stile "Card" (per tutti gli assignment) --- */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+/* Titoli all'interno delle card */
+.card h1, .card h2 {
+    border-bottom: 2px solid #eee;
     padding-bottom: 10px;
+    margin-top: 0;
 }
 
-h2 {
-    /* Grigio scuro per i sottotitoli */
-    color: #444444; 
-    font-size: 1.6em;
-    margin-top: 30px;
+.card h3 {
+    color: #1a5276;
 }
 
-/* --- Stili per il Testo e le Liste --- */
+.card h4 {
+    color: #333;
+}
 
-p, ul {
+/* Testo e Liste nelle card */
+.card p, .card ul {
     margin-bottom: 15px;
 }
 
-ul {
-    padding-left: 25px; 
+.card ul {
+    padding-left: 20px;
 }
 
-li {
+.card li {
     margin-bottom: 10px;
 }
 
-/* Testo in grassetto (<strong>) quasi nero */
-strong {
-    color: #111;
+.card strong {
+    color: #0056b3;
 }
 
-/* --- Stili per la Linea <hr> --- */
+/* --- Stili per Codice e Demo --- */
 
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #ddd; /* Grigio medio */
-    margin: 25px 0;
-}
-
-/* --- Stili per il Link <a> --- */
-
-/* Nascondiamo il <br> prima del link */
-ul + br {
-    display: none;
-}
-
-a {
-    display: inline-block;
-    text-decoration: none; /* Rimuove la sottolineatura */
-    
-    color: #ffffff; /* Testo bianco */
-    
-    /* Sfondo grigio scuro per il pulsante */
-    background-color: #a9a9a9; 
-    
-    padding: 10px 18px;
+/* Blocchi di codice (SQL) */
+pre {
+    background-color: #2d3436; /* Sfondo scuro per il codice */
+    color: #dfe6e9;            /* Testo chiaro */
+    padding: 15px;
     border-radius: 5px;
-    margin-top: 20px;
-    
-    /* Transizione per l'effetto hover */
-    transition: background-color 0.3s ease; 
+    overflow-x: auto;
+    font-family: Consolas, 'Courier New', monospace;
 }
 
-/* Al passaggio del mouse, il pulsante diventa più scuro */
-a:hover {
-    background-color: #858585; /* Grigio ancora più scuro */
-    text-decoration: none;
+/* Stili per la Demo Interattiva (Assignment 4) */
+.interactive-demo {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.demo-group {
+    margin-bottom: 15px;
+}
+
+.demo-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.demo-group textarea,
+.demo-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.interactive-demo button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.interactive-demo button:hover {
+    background-color: #0056b3;
+}
+
+.demo-results {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.result-box {
+    flex-basis: 48%;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.result-box h4 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.final-result {
+    text-align: center;
+    background: #e6f7ff;
+    border: 1px solid #b3e0ff;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.final-result h4 {
+    margin-top: 0;
+    color: #0056b3;
+}
+
+/* --- Stili per la Homepage (index.html) --- */
+
+/* Contenitore per le schede di navigazione.
+  Usa Flexbox per allinearle orizzontalmente.
+*/
+.nav-container {
+    display: flex;
+    flex-wrap: wrap; /* Se non c'è spazio, vanno a capo */
+    gap: 20px;       /* Spazio tra le schede */
+    justify-content: center; /* Centra le schede */
+}
+
+/* Stile per la singola scheda di navigazione (i link <a>) 
+*/
+.nav-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    padding: 20px 25px;
+    
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: #333;           /* Colore del testo */
+    
+    width: 300px; /* Larghezza fissa per ogni scheda */
+    
+    /* Effetto di transizione al passaggio del mouse */
+    transition: all 0.2s ease-in-out; 
+}
+
+/* Effetto "sollevamento" al passaggio del mouse */
+.nav-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    color: #0056b3; /* Cambia colore del testo (opzionale) */
+}
+
+/* Titolo della scheda di navigazione */
+.nav-card h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    color: #1a5276;
+}
+
+/* Paragrafo della scheda di navigazione */
+.nav-card p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 0;
 }
