@@ -143,13 +143,15 @@ pre {
 
 .demo-results {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Impila verticalmente */
     gap: 20px;
     margin-bottom: 20px;
 }
 
+/* CAMBIATO: ho rimosso 'flex-basis: 48%' 
+   per far sì che ogni grafico usi il 100% della larghezza
+*/
 .result-box {
-    flex-basis: 48%;
     background: #fff;
     border: 1px solid #eee;
     padding: 15px;

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 4</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="home-button">&larr; Back to Home</a>
+        <h1>Homework 4</h1>
+    </header>
+
+    <main>
+        <section class="card">
+            
+            <h2>Representation of the Law of Large Numbers</h2>
+
+            <p>
+                The <strong>Law of Large Numbers (LLN)</strong> is a fundamental theorem in probability. 
+                It guarantees that if I repeat an experiment a very large 
+                number of times, the observed average of the outcomes will get arbitrarily 
+                close to its theoretical expected value.
+            </p>
+            <p>
+                This relationship is defined by two concepts:
+            </p>
+            <ul>
+                <li>
+                    <strong>Theoretical Probability (p):</strong> A fixed, abstract number 
+                    representing the "success" probability of a single trial.
+                </li>
+                <li>
+                    <strong>Empirical Frequency (f<sub>n</sub>):</strong> An experimental value. 
+                    It is the ratio of observed successes (S<sub>n</sub>) after \(n\) trials: 
+                    \(f_n = S_n / n\).
+                </li>
+            </ul>
+            <p>
+                The LLN states that the error, or the difference \(|f_n - p|\), is guaranteed 
+                to approach 0 as the number of trials, \(n\), approaches infinity.
+            </p>
+            
+            <hr style="margin: 25px 0;"> <h3>Interactive Simulation: Bernoulli Trials</h3>
+            
+            <p>
+                To visualize these concepts, I created a simulation that runs **M** independent 
+                trajectories. Each trajectory consists of **N** Bernoulli trials with a success 
+                probability of **p**.
+            </p>
+            <p>
+                This simulation generates two distinct visualizations:
+            </p>
+            <ol>
+                <li>
+                    <strong>Convergence Plot:</strong> Shows a sample of <strong>10 trajectories</strong> 
+                    (from the M total). This chart plots the empirical frequency \(f_n\) at each 
+                    step \(n\) (from 1 to N). It illustrates the "path" of convergence and 
+                    vividly displays the variance between different random trials.
+                </li>
+                <li>
+                    <strong>Histogram of Final Frequencies:</strong> This plots the distribution 
+                    of the *final* frequencies (\(f_N\)) from all **M** trajectories. 
+                    This visualization illustrates the **Central Limit Theorem**, showing 
+                    that these final results cluster in a Normal (bell-shaped) 
+                    distribution centered around the true probability \(p\).
+                </li>
+            </ol>
+            <div class="interactive-demo">
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simM">M Trajectories (for Histogram):</label>
+                        <input type="number" id="simM" value="1000">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simN">N Trials (per Trajectory):</label>
+                        <input type="number" id="simN" value="500">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simP">Probability p (0.0 to 1.0):</label>
+                        <input type="number" id="simP" value="0.5" step="0.1" min="0" max="1">
+                    </div>
+                </div>
+                
+                <div class="demo-group">
+                    <button id="runSimulationBtn">Run Simulation</button>
+                    <button id="resetSimulationBtn" style="background-color:#dc3545;">Reset</button>
+                </div>
+
+                <div class="demo-results">
+                    
+                    <div class="result-box">
+                        <h4>Convergence Path (10 Sample Trajectories)</h4>
+                        <canvas id="convergenceChart"></canvas>
+                        
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            This chart displays 30 random paths. 
+                            Notice how each trajectory (colored lines) is unique, but they all 
+                            tend to "converge" or cluster around the theoretical probability 'p' (red line) 
+                            as the number of trials (N) increases.
+                        </p>
+                    </div>
+
+                    <div class="result-box">
+                        <h4>Histogram of Final Frequencies (M Trajectories)</h4>
+                        <canvas id="histogramChart"></canvas>
+                        
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            This histogram shows the final frequency 
+                            (at N trials) for all M trajectories. It forms a 'bell curve' (Normal 
+                            Distribution) centered on the true probability 'p'. This shows that 
+                            most experiments end up very close to the true value.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    
+    </main>
+
+    <script src="../js/hw4.js"></script>
+
+</body>
+</html>

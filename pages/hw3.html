@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 3</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="home-button">&larr; Back to Home</a>
+        <h1>Homework 3</h1>
+    </header>
+
+    <main>
+        
+        <section class="card">
+            
+            <h2>RSA Encryption and Frequency Analysis</h2>
+
+            <h3>What is RSA?</h3>
+            <p>
+                RSA is an <strong>asymmetric cryptosystem</strong>, meaning it uses two different 
+                keys: a **Public Key** for encryption and a **Private Key** for decryption. 
+                The public key can be shared with anyone without compromising security, while 
+                the private key must be kept secret.
+            </p>
+            <p>
+                The security of RSA is based on the practical difficulty of factoring the product 
+                of two large prime numbers (the "factoring problem").
+                
+
+            </p>
+
+            <h3>How RSA Key Generation Works</h3>
+            <p>
+                The keys are generated through the following mathematical steps. I have used small, 
+                simple numbers for this demonstration.
+            </p>
+            <ol>
+                <li>
+                    <strong>Choose two prime numbers, `p` and `q`.</strong>
+                    <br>I chose: <code>p = 13</code> and <code>q = 17</code>.
+                </li>
+                <li>
+                    <strong>Calculate the modulus, `n`.</strong>
+                    <br><code>n = p * q = 13 * 17 = 221</code>.
+                    <br>This modulus `n` must be larger than the numerical value of the messages 
+                    we want to encrypt. Since the ASCII value for 'z' is 122, `n=221` is sufficient.
+                </li>
+                <li>
+                    <strong>Calculate Euler's Totient, `ϕ(n)`.</strong>
+                    <br><code>ϕ(n) = (p-1) * (q-1) = 12 * 16 = 192</code>.
+                    <br>This number represents how many integers less than `n` are coprime to `n`.
+                </li>
+                <li>
+                    <strong>Choose a public exponent, `e`.</strong>
+                    <br>`e` must be coprime to `ϕ(n)`. I chose: <code>e = 5</code>.
+                    <br>The **Public Key** is <code>(n=221, e=5)</code>.
+                </li>
+                <li>
+                    <strong>Calculate the private exponent, `d`.</strong>
+                    <br>`d` is the modular multiplicative inverse of `e` (mod `ϕ(n)`).
+                    <br>It must satisfy: <code>(d * e) % ϕ(n) = 1</code>.
+                    <br>I solved <code>(d * 5) % 192 = 1</code>, which gives: <code>d = 77</code>.
+                    <br>(Check: 77 * 5 = 385. And 385 % 192 = 1. It is correct.)
+                    <br>The **Private Key** is <code>(n=221, d=77)</code>.
+                </li>
+            </ol>
+            
+            <p>
+                <strong>Encryption:</strong> C = M<sup>e</sup> mod n
+                <br>
+                <strong>Decryption:</strong> M = C<sup>d</sup> mod n
+            </p>
+
+            <hr>
+
+            <h3>The Vulnerability of "Letter-by-Letter" RSA</h3>
+            <p>
+                RSA is secure when used on large blocks of data. However, if I apply it 
+                naively to one letter at a time, it becomes a simple 
+                <strong>monoalphabetic substitution cipher</strong>. 
+                Every 'a' in the text will *always* encrypt to the same number (e.g., 97<sup>5</sup> % 221 = 150), 
+                and every 'e' will *always* encrypt to another number.
+            </p>
+            <p>
+                This means the *distribution of the encrypted numbers* will perfectly mirror 
+                the *distribution of the original letters*, making it trivial to break 
+                with frequency analysis, just like the Caesar cipher.
+            </p>
+
+            <div class="interactive-demo">
+                <div class="demo-group">
+                    <label for="rsaText">Input Text (Italian):</label>
+                    <textarea id="rsaText" rows="6">Alice non si era fatta niente e saltò in piedi in un attimo; alzò gli occhi in alto,
+ma era buio pesto; davanti c'era un altro lungo cunicolo in fondo al quale
+intravvide il Coniglio Bianco che correva. Non c'era un minuto da perdere. E via,
+veloce come il vento, Alice lo rincorse, appena in tempo per sentirlo esclamare,
+mentre svoltava l'angolo: «Oh, baffi e basette! Come s'è fatto tardi!» Gli stava
+ormai alle calcagna, ma, quando anche lei svoltò l'angolo, il Coniglio non c'era
+più. E Alice si ritrovò in un salone basso e lungo, illuminato da una fila di
+lampade che pendevano dal soffitto.
+C'erano tante porte attorno al salone, ma erano chiuse a chiave, e dopo aver
+percorso tutto un lato fino in fondo ed essere tornata indietro lungo l'altro,
+provando ciascuna porta, Alice si portò tristemente nel mezzo della sala,
+pensando a come mai avrebbe fatto a uscirne fuori.
+Di punto in bianco, si trovò davanti a un tavolino a tre gambe, tutto in vetro
+spesso; sopra, non c'era altro che una piccola chiave d'oro, e il primo pensiero di
+Alice fu che potesse aprire una delle porte del salone. Ma, ahimè! o le serrature
+erano troppo grandi, o la chiave era troppo piccola; sta di fatto che non ne aprì
+nessuna. Comunque, nel suo secondo giro attorno al salone, si trovò davanti a
+una tendina corta che non aveva notato prima, e dietro alla quale c'era una
+porticina non più alta di una trentina di centimetri: provò a infilare la piccola
+chiave d'oro nella serratura e con sua grande gioia vide che funzionava!
+Alice aprì la porticina e scoprì che dava su un piccolo cunicolo poco più largo
+della tana di un topo; si mise ginocchioni e guardando attraverso il cunicolo,
+scorse il più bel giardino del mondo. Che voglia aveva di uscire da quel salone
+tetro per andare a passeggiare fra quelle aiuole di fiori risplendenti e fra quelle
+fontane di acqua fresca! Ma non ci infilava neanche la testa in quella porticina,
+«e se anche ci passassi con la testa», pensava la povera Alice, «a che servirebbe
+senza le spalle? Ah, se potessi riserrarmi come un telescopio! Mi basterebbe
+sapere qual è la prima mossa e poi, sono sicura, ci riuscirei!» Dovete capire che,
+essendole capitate tante cose strambe negli ultimi tempi, Alice si stava ormai
+convincendo che di veramente impossibile non ci fosse quasi più nulla.
+Poiché era inutile aspettare accanto alla porticina, ritornò verso il tavolino, con la
+mezza speranza di trovarci un'altra chiave, o perlomeno un manuale che
+insegnasse come si fa a riserrare una persona come un telescopio; questa volta ci
+trovò una bottiglietta («che certamente non era qui, prima», osservò Alice), con
+attaccato al collo un cartellino dove c'era scritto BEVIMI in caratteri di stampa
+grandi e belli.
+Si fa presto a dire "Bevimi", ma la nostra saggia piccola Alice non avrebbe fatto
+una cosa simile alla leggera. «No, prima devo vedere» obiettò «se c'è scritto
+"veleno" oppure no», perché aveva letto tante storie di bambini che finivano
+bruciati, o mangiati dalle bestie feroci, o in altri modi poco piacevoli, e tutto
+perché avevano dimenticato le buone e sane regole che gli amici avevano
+insegnato loro, come per esempio che non devi tenere troppo a lungo in mano un
+attizzatoio rovente, perché alla fine ti scotti; che se tagli troppo profondamente
+un dito poi ti sanguina; ma soprattutto lei non aveva mai dimenticato che se trovi
+una bottiglia con la scritta "veleno" e te la bevi tutta o quasi, prima o poi ti senti
+male. Comunque, su questa bottiglia, non c'era scritto "veleno", e Alice si
+azzardò a berne un sorso; il sapore era molto buono (era un misto di torta di
+ciliegie, crema, ananas, tacchino arrosto, caramella mou e crostino spalmato col
+burro) e ben presto se l'ebbe bevuta tutta.
+«Che curiosa sensazione!» osservò Alice. «Di certo mi sto riserrando come un
+telescopio!»
+E così era infatti; adesso era alta solo trenta centimetri, e si illuminò tutta al
+pensiero di essere della misura giusta per passare attraverso la porticina che dava
+sul bel giardino. Ma prima di ogni altra cosa, comunque, attese qualche minuto
+per vedere se si fosse impicciolita ancora di più; era un pensiero che la
+innervosiva, «perché potrebbe andare a finire» mugugnava fra sé, «che mi
+estinguo tutta, come una candela. Chissà come sarei, allora?» E cercò di figurarsi
+come poteva essere la fiamma di una candela quando la candela aveva finito di
+consumarsi, perché non le veniva in mente di aver mai visto una cosa simile.</textarea>
+                </div>
+
+                <button id="runRsaBtn">Run RSA Encryption and Attack</button>
+
+                <div class="demo-results">
+                    <div class="result-box">
+                        <h4>Original Text Distribution (Letters)</h4>
+                        <canvas id="originalRsaChart"></canvas>
+                    </div>
+                    <div class="result-box">
+                        <h4>Ciphertext Distribution (Numbers)</h4>
+                        <canvas id="cipheredRsaChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="final-result">
+                    <h4>Decoder Result (Frequency Attack)</h4>
+                    <p>
+                        Result of mapping the most frequent ciphered numbers to the 
+                        most frequent letters in the Italian language:
+                    </p>
+                    <p id="rsaAttackResult" style="font-family: monospace; font-size: 0.9em; word-wrap: break-word; text-align: left; background: #fff; padding: 10px; border-radius: 4px;">
+                        ...
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <script src="../js/hw3.js"></script>
+
+</body>
+</html>

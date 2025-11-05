@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 5</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="home-button">&larr; Back to Home</a>
+        <h1>Homework 5</h1>
+    </header>
+
+    <main>
+        
+        <section class="card">
+            
+            <h2>Assignment: Measures of Location and Dispersion</h2>
+
+            <p>
+                In statistics, we use two primary types of measures to summarize a dataset:
+            </p>
+            <ul>
+                <li>
+                    <strong>Measures of Location (or Central Tendency):</strong> These describe 
+                    the "center" or "typical value" of the data (e.g., the averages).
+                </li>
+                <li>
+                    <strong>Measures of Dispersion (or Variability):</strong> These describe 
+                    how "spread out" or "varied" the data is.
+                </li>
+            </ul>
+
+            <hr style="margin: 25px 0;">
+
+            <h3>Measures of Location (The "Averages")</h3>
+            <p>
+                The term "average" is ambiguous, as it can refer to several different measures. 
+                The choice of which average to use depends entirely on the *shape* of the 
+                data distribution and the *question* being asked.
+            </p>
+
+            <h4>1. Mean</h4>
+            <p>
+                <strong>What it is:</strong> This is what most people mean by "average". 
+                It is the sum of all values divided by the count of all values.
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                The mean is the "center of gravity" of the data. It is most useful for 
+                <strong>symmetrical distributions</strong> (like the Normal distribution, 
+                or bell curve) where the data is evenly balanced.
+            </p>
+            <p>
+                <strong>When it is NOT useful (it is misleading):</strong>
+                The mean is highly sensitive to <strong>outliers</strong> (extreme values). 
+                If one value is massive, it will "pull" the mean towards it.
+                <br>
+                <em>Example:</em> In a room with 9 people and 1 billionaire, the *mean* income might be $100 million, which is not a useful description of the room.
+            </p>
+
+            <h4>2. Median</h4>
+            <p>
+                <strong>What it is:</strong> The "middle" value of a dataset that has been 
+                sorted in order. It is the 50th percentile.
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                The median is the **best choice for skewed data** or data with significant 
+                outliers. It is "robust" because it is not affected by extreme values.
+                <br>
+                <em>Example:</em> For reporting **housing prices** or **income levels**, 
+                the median is almost always used. It represents the "typical" person or 
+                house, ignoring the few billionaires or mega-mansions.
+            </p>
+
+            <h4>3. Mode</h4>
+            <p>
+                <strong>What it is:</strong> The value that appears most frequently in the 
+                dataset.
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                The mode is the only measure that makes sense for 
+                <strong>categorical data</strong> (e.g., the "average" T-shirt color sold 
+                is 'Blue'). It is also useful for numerical data to find "peaks". A dataset 
+                with two peaks is called **bimodal**.
+                
+            </p>
+
+            <hr style="margin: 25px 0;">
+
+            <h3>Measures of Dispersion</h3>
+            <p>
+                These measures quantify how much the data varies from the central point.
+            </p>
+
+            <h4>1. Range</h4>
+            <p>
+                <strong>What it is:</strong> The simplest measure of dispersion. 
+                It is the total spread of the data, calculated as the difference 
+                between the maximum and minimum value.
+            </p>
+            <p>
+                <strong>Formula:</strong> \( \text{Range} = \text{Max}(x) - \text{Min}(x) \)
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                It provides a very quick, easy-to-calculate snapshot of the full 
+                span of the data. It is often used in contexts like daily 
+                temperature reports (e.g., "today's temperature range is 10°").
+            </p>
+            <p>
+                <strong>When it is NOT useful:</strong>
+                It is extremely sensitive to <strong>outliers</strong>. A single 
+                unusually high or low value will completely dictate the range, 
+                which can be highly misleading. It tells you nothing about where 
+                the majority of the data is clustered.
+            </p>
+
+            <h4>2. Interquartile Range (IQR)</h4>
+            <p>
+                <strong>What it is:</strong> A "robust" measure of dispersion that 
+                describes the spread of the **middle 50%** of the data.
+            </p>
+            <p>
+                <strong>Formula:</strong> \( \text{IQR} = Q_3 - Q_1 \)
+                <br>
+                (Where \(Q_3\) is the 75th percentile and \(Q_1\) is the 25th percentile).
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                The IQR is the natural partner to the <strong>Median</strong>. 
+                Because it ignores the bottom 25% and top 25% of the data, it is 
+                **not sensitive to outliers**. This makes it the ideal measure of 
+                spread for <strong>skewed data</strong> (like income or housing prices).
+            </p>
+            <p>
+                It is famously used as the basis for <strong>boxplots</strong> 
+                (or box-and-whisker plots), which visualize the median, IQR, and outliers 
+                all in one.
+            </p>
+            
+
+            <h4>3. Variance (\(\sigma^2\))</h4>
+            <p>
+                <strong>What it is:</strong> The average of the <strong>squared differences</strong> 
+                from the Mean. It measures how far, on average, each data point is 
+                from the mean.
+            </p>
+            <p>
+                <strong>Formula:</strong> \( \sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2 \)
+            </p>
+            <p>
+                <strong>When it is used:</strong> Variance is a fundamental concept in statistics, 
+                but it is rarely used for reporting because its units are *squared* (e.g., "meters-squared"). Its main use is as the mathematical engine to 
+                calculate the Standard Deviation.
+            </p>
+
+            <h4>4. Standard Deviation (\(\sigma\))</h4>
+            <p>
+                <strong>What it is:</strong> The **square root of the Variance**.
+            </p>
+            <p>
+                <strong>Formula:</strong> \( \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} \)
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                This is the **most common measure of dispersion** for Example: 
+                <strong>symmetrical (non-skewed) data</strong>. It is expressed 
+                in the **same units as the data** (e.g., if the data is in meters, the 
+                Std Dev is also in meters).
+                <br>
+                It represents the "typical" or "standard" amount of deviation from the mean.
+                
+
+            </p>
+
+            <h4>5. Mean Squared Error (MSE)</h4>
+            <p>
+                <strong>What it is:</strong> The MSE is conceptually identical to Variance, 
+                but it is used in a different context. It measures the average squared 
+                difference between **observed values** and **predicted values** from a 
+                model.
+            </p>
+            <p>
+                <strong>Formula:</strong> \( MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \)
+                <br>
+                (Where \(Y_i\) is the actual value and \(\hat{Y}_i\) is the model's prediction).
+            </p>
+            <p>
+                <strong>When it makes sense:</strong>
+                MSE is a **performance metric for a model**. It is not used to describe 
+                a dataset, but to measure how "wrong" a prediction model (like a 
+                machine learning algorithm) is. A lower MSE means the model is more 
+                accurate.
+            </p>
+        </section>
+        
+    </main>
+
+</body>
+</html>
