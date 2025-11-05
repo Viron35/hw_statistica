@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 6</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="home-button">&larr; Back to Home</a>
+        <h1>Homework 6</h1>
+    </header>
+
+    <main>
+        
+        <section class="card">
+            
+            <h2>Assignment: Online Algorithms for Mean and Variance</h2>
+
+            <h3>What is an "Online" Algorithm?</h3>
+            <p>
+                In statistics, a standard calculation (or "offline" algorithm) assumes 
+                you have the **entire dataset** available in memory. To calculate the 
+                mean, you sum all \(N\) values and divide by \(N\).
+            </p>
+            <p>
+                An <strong>"online" algorithm</strong>, in contrast, processes data 
+                sequentially, one piece at a time. It updates the statistic (like the mean) 
+                using only the new value and the *previous* statistic. After processing 
+                the new value, it is discarded.
+            </p>
+            <p>
+                This approach is essential for:
+            </p>
+            <ul>
+                <li><strong>Streaming Data:</strong> When data arrives continuously (e.g., IoT sensors, network traffic).</li>
+                <li><strong>Large Datasets:</strong> When the dataset is too large to fit into memory.</li>
+                <li><strong>Efficiency:</strong> It avoids re-calculating the entire sum every time a new value is added.</li>
+            </ul>
+
+            <hr style="margin: 25px 0;">
+
+            <h3>1. Recurrence Formula for the Mean</h3>
+            <p>
+                Our goal is to find the new mean (\(\mu_n\)) using only the old mean 
+                (\(\mu_{n-1}\)), the new value (\(x_n\)), and the new count (\(n\)).
+            </p>
+            
+            <p><strong>Derivation:</strong></p>
+            <ol>
+                <li>
+                    The mean at step \(n\) is defined as:
+                    \[ \mu_n = \frac{1}{n} \sum_{i=1}^{n} x_i \]
+                </li>
+                <li>
+                    We can split the sum into two parts: the sum of the first \(n-1\) items, and the new item \(x_n\):
+                    \[ \mu_n = \frac{1}{n} \left( ( \sum_{i=1}^{n-1} x_i ) + x_n \right) \]
+                </li>
+                <li>
+                    We know that the sum of the first \(n-1\) items is just \((n-1) \cdot \mu_{n-1}\). We can substitute this in:
+                    \[ \mu_n = \frac{1}{n} \left( (n-1)\mu_{n-1} + x_n \right) \]
+                </li>
+                <li>
+                    Now we just rearrange the terms to find the recurrence:
+                    \[ \mu_n = \frac{(n-1)}{n}\mu_{n-1} + \frac{x_n}{n} \]
+                    \[ \mu_n = \frac{n\mu_{n-1} - \mu_{n-1} + x_n}{n} \]
+                    \[ \mu_n = \mu_{n-1} + \frac{x_n - \mu_{n-1}}{n} \]
+                </li>
+            </ol>
+            
+            <p>
+                This final formula is the recurrence. It states:
+                <br>
+                <strong>New Mean = Old Mean + ( (New Value - Old Mean) / New Count )</strong>
+            </p>
+
+            <hr style="margin: 25px 0;">
+
+            <h3>2. Recurrence Formula for the Variance</h3>
+            <p>
+                This is more complex. A naive online algorithm for variance is "numerically unstable" (can lead to errors). A robust method is **Welford's Algorithm**.
+            </p>
+            <p>
+                Instead of tracking the variance directly, we track the "Sum of Squared Differences" from the mean, which we call \(M_n\).
+            </p>
+            <p>
+                <strong>Definitions:</strong>
+                <br>
+                The sum of squares at step \(n\) is: \( M_n = \sum_{i=1}^{n} (x_i - \mu_n)^2 \)
+                <br>
+                The (population) variance is: \( \text{Var}_n = M_n / n \)
+            </p>
+            <p>
+                The derivation for the recurrence of \(M_n\) is complex, but the result is surprisingly simple. It requires updating the mean first, and then updating \(M_n\).
+            </p>
+            
+            <p><strong>The Recurrence Formulas (Welford's Algorithm):</strong></p>
+            <p>
+                To add a new value \(x_n\), we use these three steps (assuming we have \(n-1\), \(\mu_{n-1}\), and \(M_{n-1}\) stored):
+            </p>
+            <ol>
+                <li>\( n = (n-1) + 1 \)</li>
+                <li>\( \mu_n = \mu_{n-1} + \frac{x_n - \mu_{n-1}}{n} \)</li>
+                <li>\( M_n = M_{n-1} + (x_n - \mu_{n-1})(x_n - \mu_n) \)</li>
+            </ol>
+            <p>
+                After these calculations, the new variance can be found:
+                <br>
+                <strong>Population Variance:</strong> \( \sigma^2 = M_n / n \)
+                <br>
+                <strong>Sample Variance:</strong> \( s^2 = M_n / (n-1) \) (if \(n > 1\))
+            </p>
+
+            <hr style="margin: 25px 0;">
+            
+            <h3>3. Interactive Implementation (JavaScript)</h3>
+            <p>
+                This demo implements the "online" formulas derived above. Add values one 
+                at a time, or add a batch of random values to see the statistics 
+                update instantly.
+            </p>
+            
+            <div class="interactive-demo">
+                
+                <div class="demo-group">
+                    <label for="newValue">Enter a new value:</label>
+                    <input type="number" id="newValue" placeholder="e.g., 5.3" style="width: 150px; margin-right: 10px;">
+                    <button id="addValueBtn">Add Value</button>
+                </div>
+
+                <div class="demo-group" style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 20px;">
+                    <label for="randomCount">...or add a batch of random values (from 0 to 100):</label>
+                    <input type="number" id="randomCount" value="100" style="width: 100px; margin-right: 10px;">
+                    <button id="addRandomBtn">Add Random Values</button>
+                </div>
+                
+                <div class="demo-group" style="margin-top: 20px;">
+                     <button id="resetBtn" style="background-color:#dc3545;">Reset Statistics</button>
+                </div>
+
+                <div class="result-box" style="width: 100%; box-sizing: border-box; margin-top: 20px;">
+                    <h4>Current Statistics:</h4>
+                    <p style="font-size: 1.1em;">
+                        <strong>Count (n):</strong> <span id="statCount">0</span>
+                        <br>
+                        <strong>Mean (\(\mu\)):</strong> <span id="statMean">N/A</span>
+                        <br>
+                        <strong>Sum of Squares (M<sub>n</sub>):</strong> <span id="statM2">N/A</span>
+                        <br>
+                        <strong>Population Variance (\(\sigma^2\)):</strong> <span id="statVar">N/A</span>
+                        <br>
+                        <strong>Sample Variance (s<sup>2</sup>):</strong> <span id="statSampleVar">N/A</span>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+        <section class="card">
+            
+            <h2>Optional Assignment: Computational Advantage of Online Algorithms</h2>
+
+            <p>
+                The primary advantage of the online algorithm is not just convenience; it lies 
+                in its fundamental efficiency in terms of **memory (space)** and **data access (passes)**.
+            </p>
+
+            <h3>The Classical ("Offline") Method</h3>
+            <p>
+                To calculate the variance in the classical way, a computer must:
+            </p>
+            <ol>
+                <li>
+                    <strong>Store all \(N\) values in memory.</strong> If the dataset has 1 billion 
+                    numbers, this requires gigabytes of RAM.
+                </li>
+                <li>
+                    <strong>Pass 1:</strong> Iterate through all \(N\) values to calculate the Mean (\(\mu\)).
+                </li>
+                <li>
+                    <strong>Pass 2:</strong> Iterate through all \(N\) values *again* to 
+                    calculate the sum of squared differences from the mean 
+                    (\( \sum (x_i - \mu)^2 \)).
+                </li>
+            </ol>
+            <ul>
+                <li><strong>Space Complexity:</strong> \(O(N)\). Memory usage grows linearly with the 
+                    size of the dataset.</li>
+                <li><strong>Time Complexity:</strong> \(O(N)\) (for two passes).</li>
+            </ul>
+
+            <h3>The Online Method (Welford's Algorithm)</h3>
+            <p>
+                To calculate the variance, the "online" algorithm:
+            </p>
+            <ol>
+                <li>
+                    <strong>Stores only 3 values:</strong> `count`, `mean`, `M2`.
+                </li>
+                <li>
+                    <strong>Pass 1:</strong> Iterates through all \(N\) values *once*. 
+                    During this single pass, it performs a few simple arithmetic operations 
+                    for each value to update the three stored variables.
+                </li>
+            </ol>
+            <ul>
+                <li><strong>Space Complexity:</strong> \(O(1)\). Memory usage is **constant**. 
+                    It doesn't matter if you process 100 values or 100 billion.
+                </li>
+                <li><strong>Time Complexity:</strong> \(O(N)\) (for one pass).</li>
+            </ul>
+            
+            <h3>Conclusion: Why is "Online" more efficient?</h3>
+            <p>
+                While both methods have the same "Big O" time complexity (\(O(N)\)), 
+                the online algorithm is vastly superior for two key reasons:
+            </p>
+            <ol>
+                <li>
+                    <strong>Memory (Space):</strong> The \(O(1)\) space complexity is the biggest advantage. 
+                    It allows us to calculate statistics for datasets that are **too large to fit 
+                    in memory** (e.g., streaming data from a network, analyzing multi-terabyte files).
+                </li>
+                <li>
+                    <strong>Data Access (Passes):</strong> The online algorithm requires only **one pass** over the data. The classical algorithm requires **two passes**. If the data is 
+                    not in RAM (e.g., on a slow hard drive or a network), reading the entire dataset 
+                    twice is extremely inefficient and slow.
+                </li>
+            </ol>
+            <p>
+                In summary, the "online" algorithm is more efficient because it completely 
+                removes the memory bottleneck and halves the number of data accesses required.
+            </p>
+
+        </section>
+    </main>
+
+    <script src="../js/hw6.js"></script>
+
+</body>
+</html>
