@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homework 6</title>
-    
     <link rel="stylesheet" href="../css/style.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
 </head>
 
 <body>
 
-    <header>
-        <a href="../index.html" class="home-button">&larr; Back to Home</a>
-        <h1>Homework 6</h1>
-    </header>
+    <aside class="sidebar">
+        <h2>Navigation</h2>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/hw1.html">Homework 1</a></li>
+                <li><a href="../pages/hw2.html">Homework 2</a></li>
+                <li><a href="../pages/hw3.html">Homework 3</a></li>
+                <li><a href="../pages/hw4.html">Homework 4</a></li>
+                <li><a href="../pages/hw5.html">Homework 5</a></li>
+                <li><a href="../pages/hw6.html" class="active">Homework 6</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Homework 6</h1>
+        </header>
 
     <main>
         
@@ -163,81 +177,106 @@
         </section>
         <section class="card">
             
-            <h2>Optional Assignment: Computational Advantage of Online Algorithms</h2>
+            <h2>Optional Assignment: Computational and Numerical Advantages</h2>
 
             <p>
-                The primary advantage of the online algorithm is not just convenience; it lies 
-                in its fundamental efficiency in terms of **memory (space)** and **data access (passes)**.
+                The online algorithm (Welford's method) is superior to traditional batch 
+                algorithms not only in efficiency but also, critically, in 
+                <strong>numerical stability</strong>.
             </p>
 
-            <h3>The Classical ("Offline") Method</h3>
+            <h3>1. Computational Efficiency, Robustness, and Scalability</h3>
             <p>
-                To calculate the variance in the classical way, a computer must:
+                This is the most obvious advantage, as discussed previously:
             </p>
-            <ol>
-                <li>
-                    <strong>Store all \(N\) values in memory.</strong> If the dataset has 1 billion 
-                    numbers, this requires gigabytes of RAM.
-                </li>
-                <li>
-                    <strong>Pass 1:</strong> Iterate through all \(N\) values to calculate the Mean (\(\mu\)).
-                </li>
-                <li>
-                    <strong>Pass 2:</strong> Iterate through all \(N\) values *again* to 
-                    calculate the sum of squared differences from the mean 
-                    (\( \sum (x_i - \mu)^2 \)).
-                </li>
-            </ol>
             <ul>
-                <li><strong>Space Complexity:</strong> \(O(N)\). Memory usage grows linearly with the 
-                    size of the dataset.</li>
-                <li><strong>Time Complexity:</strong> \(O(N)\) (for two passes).</li>
+                <li>
+                    <strong>Memory (Scalability):</strong> The online algorithm has a 
+                    <strong>\(O(1)\) space complexity</strong> (it stores only 3 state 
+                    variables: `count`, `mean`, `M2`). A batch algorithm requires 
+                    <strong>\(O(N)\) space</strong> to store all data points, making 
+                    it impossible for streams or terabyte-scale datasets.
+                </li>
+                <li>
+                    <strong>Efficiency (Passes):</strong> The online algorithm requires only 
+                    <strong>one pass</strong> over the data. The most stable batch algorithm 
+                    requires **two passes** (one to find the mean \(\mu\), a second to find 
+                    \( \sum (x_i - \mu)^2 \)).
+                </li>
+                <li>
+                    <strong>Robustness:</strong> The algorithm is robust to data arrival; it can 
+                    be stopped and started, and it produces a valid statistic at every step.
+                </li>
             </ul>
 
-            <h3>The Online Method (Welford's Algorithm)</h3>
+            <hr style="margin: 25px 0;">
+
+            <h3>2. Numerical Stability (The Critical Advantage)</h3>
             <p>
-                To calculate the variance, the "online" algorithm:
+                The primary challenge in variance calculation is numerical precision. 
+                A common "naive" one-pass batch formula is:
             </p>
-            <ol>
-                <li>
-                    <strong>Stores only 3 values:</strong> `count`, `mean`, `M2`.
-                </li>
-                <li>
-                    <strong>Pass 1:</strong> Iterates through all \(N\) values *once*. 
-                    During this single pass, it performs a few simple arithmetic operations 
-                    for each value to update the three stored variables.
-                </li>
-            </ol>
-            <ul>
-                <li><strong>Space Complexity:</strong> \(O(1)\). Memory usage is **constant**. 
-                    It doesn't matter if you process 100 values or 100 billion.
-                </li>
-                <li><strong>Time Complexity:</strong> \(O(N)\) (for one pass).</li>
-            </ul>
+            \[ \text{Var} = \frac{\sum x_i^2 - (\sum x_i)^2 / n}{n} \]
             
-            <h3>Conclusion: Why is "Online" more efficient?</h3>
             <p>
-                While both methods have the same "Big O" time complexity (\(O(N)\)), 
-                the online algorithm is vastly superior for two key reasons:
-            </p>
-            <ol>
-                <li>
-                    <strong>Memory (Space):</strong> The \(O(1)\) space complexity is the biggest advantage. 
-                    It allows us to calculate statistics for datasets that are **too large to fit 
-                    in memory** (e.g., streaming data from a network, analyzing multi-terabyte files).
-                </li>
-                <li>
-                    <strong>Data Access (Passes):</strong> The online algorithm requires only **one pass** over the data. The classical algorithm requires **two passes**. If the data is 
-                    not in RAM (e.g., on a slow hard drive or a network), reading the entire dataset 
-                    twice is extremely inefficient and slow.
-                </li>
-            </ol>
-            <p>
-                In summary, the "online" algorithm is more efficient because it completely 
-                removes the memory bottleneck and halves the number of data accesses required.
+                This formula is notoriously unstable and suffers from several problems 
+                that Welford's algorithm (quello che abbiamo implementato) solves.
             </p>
 
+            <h4>Catastrophic Cancellation</h4>
+            <p>
+                <strong>The Problem:</strong> This occurs when you subtract two very large 
+                numbers that are very close to each other. The result loses many significant 
+                digits of precision, leading to a highly inaccurate, small (or even negative) 
+                variance.
+            </p>
+            <p>
+                <em>Example:</em> Imagine your data is [1000000, 1000001, 1000002].
+                <br>
+                The term \( \sum x_i^2 \) will be massive.
+                <br>
+                The term \( (\sum x_i)^2 / n \) will also be massive, and almost identical to the first.
+                <br>
+                Their subtraction will result in catastrophic cancellation.
+            </p>
+            <p>
+                <strong>The Online Solution:</strong> Welford's algorithm is built on calculating 
+                the sum of squares using the *differences from the mean* (\( (x_n - \mu_{n-1})(x_n - \mu_n) \)). These differences (\(\delta\)) are 
+                small numbers. By working only with these small deltas, it never 
+                subtracts two massive numbers, thus **completely avoiding catastrophic 
+                cancellation**.
+            </p>
+
+            <h4>Overflow Management</h4>
+            <p>
+                <strong>The Problem:</strong> In the naive formula, the intermediate term 
+                \( \sum x_i^2 \) can grow astronomically large, potentially 
+                exceeding the maximum value a standard 64-bit float can hold 
+                (an **overflow**), even if the final variance itself is a small, 
+                manageable number.
+            </p>
+            <p>
+                <strong>The Online Solution:</strong> Welford's algorithm sums the squares of 
+                *small differences*, not the squares of *large values*. The intermediate 
+                sum \(M_n\) (our `M2` variable) grows much, much slower, making it 
+                highly resistant to overflow.
+            </p>
+
+            <h4>Error Propagation</h4>
+            <p>
+                <strong>The Problem:</strong> In the naive algorithm, any small rounding error 
+                (floating-point error) in the large sums is magnified during the final subtraction.
+            </p>
+            <p>
+                <strong>The Online Solution:</strong> In Welford's, errors are not magnified 
+                in the same way. The algorithm is "stable" because errors introduced 
+                at one step tend to be corrected by future updates, rather than accumulating 
+                and compounding. The running mean \(\mu_n\) "follows" the data, ensuring 
+                the deltas stay small.
+            </p>
         </section>
+        
+
     </main>
 
     <script src="../js/hw6.js"></script>
