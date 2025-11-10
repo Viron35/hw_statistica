@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let histogramChartInstance = null;
     
     // Limita il "spaghetti plot" a 10 linee
-    const MAX_TRAJECTORIES_TO_PLOT = 10;
+    const MAX_TRAJECTORIES_TO_PLOT = 30;
     // Probabilità di successo (+1) per l'attaccante
     const ATTACKER_P_SUCCESS = 0.5;
 
