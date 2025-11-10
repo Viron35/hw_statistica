@@ -10,20 +10,7 @@
 
 <body>
 
-    <aside class="sidebar">
-        <h2>Navigation</h2>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/hw1.html">Homework 1</a></li>
-                <li><a href="../pages/hw2.html">Homework 2</a></li>
-                <li><a href="../pages/hw3.html">Homework 3</a></li>
-                <li><a href="../pages/hw4.html">Homework 4</a></li>
-                <li><a href="../pages/hw5.html">Homework 5</a></li>
-                <li><a href="../pages/hw6.html" class="active">Homework 6</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
 
     <main class="main-content">
 
@@ -35,12 +22,12 @@
         
         <section class="card">
             
-            <h2>Assignment: Online Algorithms for Mean and Variance</h2>
+            <h2>Online Algorithms for Mean and Variance</h2>
 
             <h3>What is an "Online" Algorithm?</h3>
             <p>
                 In statistics, a standard calculation (or "offline" algorithm) assumes 
-                you have the **entire dataset** available in memory. To calculate the 
+                you have the <strong>entire dataset</strong> available in memory. To calculate the 
                 mean, you sum all \(N\) values and divide by \(N\).
             </p>
             <p>
@@ -98,7 +85,7 @@
 
             <h3>2. Recurrence Formula for the Variance</h3>
             <p>
-                This is more complex. A naive online algorithm for variance is "numerically unstable" (can lead to errors). A robust method is **Welford's Algorithm**.
+                This is more complex. A naive online algorithm for variance is "numerically unstable" (can lead to errors). A robust method is <strong>Welford's Algorithm</strong>.
             </p>
             <p>
                 Instead of tracking the variance directly, we track the "Sum of Squared Differences" from the mean, which we call \(M_n\).
@@ -177,7 +164,7 @@
         </section>
         <section class="card">
             
-            <h2>Optional Assignment: Computational and Numerical Advantages</h2>
+            <h2>Optional: Computational and Numerical Advantages</h2>
 
             <p>
                 The online algorithm (Welford's method) is superior to traditional batch 
@@ -200,7 +187,7 @@
                 <li>
                     <strong>Efficiency (Passes):</strong> The online algorithm requires only 
                     <strong>one pass</strong> over the data. The most stable batch algorithm 
-                    requires **two passes** (one to find the mean \(\mu\), a second to find 
+                    requires <strong>two passes</strong> (one to find the mean \(\mu\), a second to find 
                     \( \sum (x_i - \mu)^2 \)).
                 </li>
                 <li>
@@ -243,8 +230,8 @@
                 <strong>The Online Solution:</strong> Welford's algorithm is built on calculating 
                 the sum of squares using the *differences from the mean* (\( (x_n - \mu_{n-1})(x_n - \mu_n) \)). These differences (\(\delta\)) are 
                 small numbers. By working only with these small deltas, it never 
-                subtracts two massive numbers, thus **completely avoiding catastrophic 
-                cancellation**.
+                subtracts two massive numbers, thus <strong>completely avoiding catastrophic 
+                cancellation</strong>.
             </p>
 
             <h4>Overflow Management</h4>
@@ -252,7 +239,7 @@
                 <strong>The Problem:</strong> In the naive formula, the intermediate term 
                 \( \sum x_i^2 \) can grow astronomically large, potentially 
                 exceeding the maximum value a standard 64-bit float can hold 
-                (an **overflow**), even if the final variance itself is a small, 
+                (an <strong>overflow</strong>), even if the final variance itself is a small, 
                 manageable number.
             </p>
             <p>
@@ -280,6 +267,7 @@
     </main>
 
     <script src="../js/hw6.js"></script>
+    <script src="../js/nav-loader.js" defer></script>
 
 </body>
 </html>

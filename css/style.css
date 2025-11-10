@@ -161,3 +161,26 @@ pre {
     border-radius: 4px;
 }
 .final-result h4 { margin-top: 0; color: #0056b3; }
+/* --- Stili per la Tabella (HW8) --- */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse; /* Bordi puliti */
+    margin: 20px 0;
+    font-size: 0.9em;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd; /* Il bordo che mancava */
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f2f2f2; /* Sfondo grigio per l'intestazione */
+    font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Strisce per la leggibilità */
+}

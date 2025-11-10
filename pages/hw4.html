@@ -11,20 +11,7 @@
 
 <body>
 
-    <aside class="sidebar">
-        <h2>Navigation</h2>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/hw1.html">Homework 1</a></li>
-                <li><a href="../pages/hw2.html">Homework 2</a></li>
-                <li><a href="../pages/hw3.html">Homework 3</a></li>
-                <li><a href="../pages/hw4.html" class="active">Homework 4</a></li>
-                <li><a href="../pages/hw5.html">Homework 5</a></li>
-                <li><a href="../pages/hw6.html">Homework 6</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
 
     <main class="main-content">
 
@@ -64,9 +51,9 @@
             <hr style="margin: 25px 0;"> <h3>Interactive Simulation: Bernoulli Trials</h3>
             
             <p>
-                To visualize these concepts, I created a simulation that runs **M** independent 
-                trajectories. Each trajectory consists of **N** Bernoulli trials with a success 
-                probability of **p**.
+                To visualize these concepts, I created a simulation that runs <strong>M</strong> independent 
+                trajectories. Each trajectory consists of <strong>N</strong> Bernoulli trials with a success 
+                probability of <strong>p</strong>.
             </p>
             <p>
                 This simulation generates two distinct visualizations:
@@ -80,8 +67,8 @@
                 </li>
                 <li>
                     <strong>Histogram of Final Frequencies:</strong> This plots the distribution 
-                    of the *final* frequencies (\(f_N\)) from all **M** trajectories. 
-                    This visualization illustrates the **Central Limit Theorem**, showing 
+                    of the *final* frequencies (\(f_N\)) from all <strong>M</strong> trajectories. 
+                    This visualization illustrates the <strong>Central Limit Theorem</strong>, showing 
                     that these final results cluster in a Normal (bell-shaped) 
                     distribution centered around the true probability \(p\).
                 </li>
@@ -141,6 +128,7 @@
     </main>
 
     <script src="../js/hw4.js"></script>
+    <script src="../js/nav-loader.js" defer></script>
 
 </body>
 </html>

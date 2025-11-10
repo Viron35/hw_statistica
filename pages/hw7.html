@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
+
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Homework 7</h1>
+        </header>
+
+        <section class="card">
+            
+            <h2>Attacker Trajectories as Random Walks</h2>
+            <p>
+                This assignment simulates the activity of \(m\) attackers over \(n\) weeks. 
+                Each attacker attempts to breach a server every week, with a success probability \(p=0.5\).
+            </p>
+            <p>
+                I generated \(m\) random trajectories, where each trajectory represents the 
+                <strong>cumulative score of a single attacker</strong>.
+            </p>
+
+            <h3>1. The Simulation Model (Random Walk)</h3>
+            <p>
+                Each of the \(m\) attackers is tracked independently for \(n\) weeks. Each 
+                attacker starts with a score of 0.
+            </p>
+            <p>
+                Every week, each attacker:
+            </p>
+            <ul>
+                <li><strong>Succeeds</strong> (with probability \(p=0.5\)): Their score increases by 1.</li>
+                <li><strong>Fails</strong> (with probability \(1-p=0.5\)): Their score decreases by 1.</li>
+            </ul>
+            <p>
+                This process precisely describes a <strong>Simple 1D Random Walk</strong> (or "Drunkard's Walk"). 
+                Each attacker's score-path over \(n\) weeks is one "trajectory".
+            </p>
+
+            <h3>2. Convergence to the Binomial Distribution</h3>
+            <p>
+                I simulated \(m\) trajectories (one for each attacker) and plotted a histogram 
+                of their <strong>final scores</strong> after \(n\) weeks. This distribution of final 
+                scores is directly related to the <strong>Binomial Distribution</strong>.
+            </p>
+            <p>
+                For a single attacker, let \(S_n\) be the total number of "Successes" (+1) and 
+                \(F_n\) be the total number of "Failures" (-1) after \(n\) weeks.
+            </p>
+            <ul>
+                <li>Total weeks (trials): \(n = S_n + F_n\)</li>
+                <li>Final Score: \( \text{Score} = S_n - F_n \)</li>
+            </ul>
+            <p>
+                By substituting \(F_n = n - S_n\), we can define the score based only on successes:
+                <br>
+                \( \text{Score} = S_n - (n - S_n) \)
+                <br>
+                <strong>\( \text{Score} = 2S_n - n \)</strong>
+            </p>
+            <p>
+                Since each week is an independent trial with \(p=0.5\), the number of 
+                successes \(S_n\) for any attacker follows a Binomial distribution: 
+                <strong>\( S_n \sim \text{Binomial}(n, p=0.5) \)</strong>.
+            </p>
+            <p>
+                This means our histogram of final scores (Plot 2) must converge to the shape 
+                of the Binomial distribution, just shifted (by \(-n\)) and scaled (by \(2\)). 
+                As \(m\) (the number of attackers/trajectories) diverges, the experimental 
+                histogram becomes a perfect match for the theoretical Binomial PMF (red line).
+            </p>
+
+        </section>
+
+        <section class="card">
+            <h2>Interactive Simulation</h2>
+            <div class="interactive-demo">
+                <p>
+                    Simulate \(m\) attackers, each for \(n\) weeks.
+                </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simM_att">m Attackers:</label>
+                        <input type="number" id="simM_att" value="1000">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simN_weeks">n Weeks:</label>
+                        <input type="number" id="simN_weeks" value="100">
+                    </div>
+                </div>
+                
+                <div class="demo-group">
+                    <button id="runSimulationBtn">Run Simulation</button>
+                    <button id="resetSimulationBtn" style="background-color:#dc3545;">Reset</button>
+                </div>
+
+                <div class="demo-results">
+                    <div class="result-box">
+                        <h4>Plot 1: Attacker Trajectories (Random Walks)</h4>
+                        <canvas id="trajectoryChart"></canvas>
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            A sample of 10 attacker score 
+                            trajectories. Since \(p=0.5\), the paths are "unbiased" and 
+                            wander around 0.
+                        </p>
+                    </div>
+                    <div class="result-box">
+                        <h4>Plot 2: Histogram of Final Scores</h4>
+                        <canvas id="histogramChart"></canvas>
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            The distribution of final scores from 
+                            all \(m\) attackers (blue bars) compared to the theoretical 
+                            Binomial distribution (red line).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="../js/hw7.js"></script>
+    <script src="../js/nav-loader.js" defer></script>
+
+</body>
+</html>

@@ -10,20 +10,7 @@
 
 <body>
 
-    <aside class="sidebar">
-        <h2>Navigation</h2>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/hw1.html">Homework 1</a></li>
-                <li><a href="../pages/hw2.html">Homework 2</a></li>
-                <li><a href="../pages/hw3.html">Homework 3</a></li>
-                <li><a href="../pages/hw4.html">Homework 4</a></li>
-                <li><a href="../pages/hw5.html" class="active">Homework 5</a></li>
-                <li><a href="../pages/hw6.html">Homework 6</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
 
     <main class="main-content">
 
@@ -34,7 +21,7 @@
         
         <section class="card">
             
-            <h2>Assignment: Measures of Location and Dispersion</h2>
+            <h2>Measures of Location and Dispersion</h2>
 
             <p>
                 In statistics, we use two primary types of measures to summarize a dataset:
@@ -85,10 +72,10 @@
             </p>
             <p>
                 <strong>When it makes sense:</strong>
-                The median is the **best choice for skewed data** or data with significant 
+                The median is the <strong>best choice for skewed data</strong> or data with significant 
                 outliers. It is "robust" because it is not affected by extreme values.
                 <br>
-                <em>Example:</em> For reporting **housing prices** or **income levels**, 
+                <em>Example:</em> For reporting <strong>housing prices</strong> or <strong>income levels</strong>, 
                 the median is almost always used. It represents the "typical" person or 
                 house, ignoring the few billionaires or mega-mansions.
             </p>
@@ -103,7 +90,7 @@
                 The mode is the only measure that makes sense for 
                 <strong>categorical data</strong> (e.g., the "average" T-shirt color sold 
                 is 'Blue'). It is also useful for numerical data to find "peaks". A dataset 
-                with two peaks is called **bimodal**.
+                with two peaks is called <strong>bimodal</strong>.
                 
             </p>
 
@@ -140,7 +127,7 @@
             <h4>2. Interquartile Range (IQR)</h4>
             <p>
                 <strong>What it is:</strong> A "robust" measure of dispersion that 
-                describes the spread of the **middle 50%** of the data.
+                describes the spread of the <strong>middle 50%</strong> of the data.
             </p>
             <p>
                 <strong>Formula:</strong> \( \text{IQR} = Q_3 - Q_1 \)
@@ -151,7 +138,7 @@
                 <strong>When it makes sense:</strong>
                 The IQR is the natural partner to the <strong>Median</strong>. 
                 Because it ignores the bottom 25% and top 25% of the data, it is 
-                **not sensitive to outliers**. This makes it the ideal measure of 
+                <strong>not sensitive to outliers</strong>. This makes it the ideal measure of 
                 spread for <strong>skewed data</strong> (like income or housing prices).
             </p>
             <p>
@@ -178,16 +165,16 @@
 
             <h4>4. Standard Deviation (\(\sigma\))</h4>
             <p>
-                <strong>What it is:</strong> The **square root of the Variance**.
+                <strong>What it is:</strong> The <strong>square root of the Variance</strong>.
             </p>
             <p>
                 <strong>Formula:</strong> \( \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} \)
             </p>
             <p>
                 <strong>When it makes sense:</strong>
-                This is the **most common measure of dispersion** for Example: 
+                This is the <strong>most common measure of dispersion</strong> for Example: 
                 <strong>symmetrical (non-skewed) data</strong>. It is expressed 
-                in the **same units as the data** (e.g., if the data is in meters, the 
+                in the <strong>same units as the data</strong> (e.g., if the data is in meters, the 
                 Std Dev is also in meters).
                 <br>
                 It represents the "typical" or "standard" amount of deviation from the mean.
@@ -199,7 +186,7 @@
             <p>
                 <strong>What it is:</strong> The MSE is conceptually identical to Variance, 
                 but it is used in a different context. It measures the average squared 
-                difference between **observed values** and **predicted values** from a 
+                difference between <strong>observed values</strong> and <strong>predicted values</strong> from a 
                 model.
             </p>
             <p>
@@ -209,7 +196,7 @@
             </p>
             <p>
                 <strong>When it makes sense:</strong>
-                MSE is a **performance metric for a model**. It is not used to describe 
+                MSE is a <strong>performance metric for a model</strong>. It is not used to describe 
                 a dataset, but to measure how "wrong" a prediction model (like a 
                 machine learning algorithm) is. A lower MSE means the model is more 
                 accurate.
@@ -217,6 +204,7 @@
         </section>
         
     </main>
+    <script src="../js/nav-loader.js" defer></script>
 
 </body>
 </html>
