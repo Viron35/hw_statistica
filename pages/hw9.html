@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 9</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
+
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Homework 9</h1>
+            <p>Kolmogorov Axioms, Measure Theory, and Fundamental Derivations</p>
+        </header>
+
+        <section class="card">
+            <h2>1. Interpretations of Probability and the Axiomatic Approach</h2>
+
+            <h3>Main Interpretations</h3>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li>
+                    <strong>Classical (Laplace):</strong> Probability is the ratio of favorable cases 
+                    to total cases (\(N_{fav} / N_{tot}\)).
+                    <br><em>Flaw:</em> It assumes all outcomes are "equally likely," which is a circular definition (defining probability using probability). It also fails for infinite sample spaces.
+                </li>
+                <li>
+                    <strong>Frequentist (Von Mises):</strong> Probability is the limit of the relative 
+                    frequency as the number of trials approaches infinity (\( \lim_{n \to \infty} f_n \)).
+                    <br><em>Flaw:</em> We cannot actually perform infinite trials. It also cannot assign probability to single, non-repeatable events (e.g., "Probability that it rains tomorrow").
+                </li>
+                <li>
+                    <strong>Subjective (Bayesian):</strong> Probability is a measure of an individual's 
+                    degree of belief or knowledge.
+                    <br><em>Flaw:</em> It lacks objective mathematical rigor on its own; two people can validly assign different probabilities to the same event.
+                </li>
+                <li>
+                    <strong>Geometric:</strong> Uses geometric measures (length, area) for infinite sets.
+                    <br><em>Flaw:</em> Vulnerable to paradoxes (like <strong>Bertrand's Paradox</strong>) where the probability changes depending on how you define the geometry generation method.
+                </li>
+            </ul>
+
+            <h3>How Kolmogorov Resolved the Conflict</h3>
+            <p>
+                In 1933, Andrey Kolmogorov introduced the <strong>Axiomatic Approach</strong>. He essentially said: 
+                <em>"It doesn't matter what probability <strong>means</strong> philosophically; it matters how it <strong>behaves</strong> mathematically."</em>
+            </p>
+            <p>
+                He stripped probability of its physical interpretation and defined it purely as a 
+                function that maps sets to numbers, satisfying three simple rules (Axioms). This 
+                unified all previous interpretations: whether you use frequencies or degrees of belief, 
+                as long as your values obey Kolmogorov's axioms, the mathematics holds true.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>2. Probability Theory vs. Measure Theory</h2>
+            <p>
+                Kolmogorov realized that Probability Theory is just a special case of <strong>Measure Theory</strong> (a branch of analysis dealing with the size, volume, or weight of sets).
+            </p>
+            <p>
+                We can build a "dictionary" to translate concepts between the two fields:
+            </p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Probability Theory Term</th>
+                        <th>Measure Theory Term</th>
+                        <th>Symbol / Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Universe</strong></td>
+                        <td>Sample Space</td>
+                        <td>Measure Space (Set)</td>
+                        <td>\( \Omega \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objects</strong></td>
+                        <td>Events (A)</td>
+                        <td>Measurable Sets</td>
+                        <td>\( A \subseteq \Omega \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Structure</strong></td>
+                        <td>Event Space</td>
+                        <td>\( \sigma \)-algebra</td>
+                        <td>\( \mathcal{F} \) (Collection of subsets closed under complement & countable union)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size</strong></td>
+                        <td>Probability</td>
+                        <td>Measure (Finite)</td>
+                        <td>\( P \) or \( \mu \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mapping</strong></td>
+                        <td>Random Variable</td>
+                        <td>Measurable Function</td>
+                        <td>\( X: \Omega \to \mathbb{R} \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Integral</strong></td>
+                        <td>Expectation \( E[X] \)</td>
+                        <td>Lebesgue Integral</td>
+                        <td>\( \int_{\Omega} X dP \)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                The only difference is normalization: In Measure Theory, a measure \( \mu(\Omega) \) 
+                can be infinite (like the length of the real line). In Probability, we impose the 
+                constraint that the total measure must be exactly 1: <strong>\( P(\Omega) = 1 \)</strong>.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>3. Derivations from the Axioms</h2>
+            
+            <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin-bottom: 20px;">
+                <strong>Kolmogorov's Axioms:</strong>
+                <ol>
+                    <li><strong>Non-negativity:</strong> \( P(E) \ge 0 \) for any event \( E \).</li>
+                    <li><strong>Normalization:</strong> \( P(\Omega) = 1 \).</li>
+                    <li><strong>Countable Additivity:</strong> If \( E_1, E_2, \dots \) are disjoint (mutually exclusive), then \( P(\bigcup_{i} E_i) = \sum_{i} P(E_i) \).</li>
+                </ol>
+            </div>
+
+            <h3>Derivation 1: Inclusion-Exclusion Principle</h3>
+            <p>
+                For two events \( A \) and \( B \) (not necessarily disjoint), we want to prove:
+                \[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+            </p>
+            <p><strong>Proof:</strong></p>
+            <ol>
+                <li>
+                    We can decompose \( A \cup B \) into three <strong>disjoint</strong> sets:
+                    \[ A \cup B = (A \setminus B) \cup (B \setminus A) \cup (A \cap B) \]
+                </li>
+                <li>
+                    Using Axiom 3 (Additivity), we can sum their probabilities:
+                    \[ P(A \cup B) = P(A \setminus B) + P(B \setminus A) + P(A \cap B) \]
+                </li>
+                <li>
+                    Now, observe that set \( A \) is the union of \( (A \setminus B) \) and \( (A \cap B) \).
+                    <br>So, \( P(A) = P(A \setminus B) + P(A \cap B) \), which implies \( P(A \setminus B) = P(A) - P(A \cap B) \).
+                </li>
+                <li>
+                    Similarly for \( B \): \( P(B \setminus A) = P(B) - P(A \cap B) \).
+                </li>
+                <li>
+                    Substitute these back into the equation from step 2:
+                    \[ P(A \cup B) = [P(A) - P(A \cap B)] + [P(B) - P(A \cap B)] + P(A \cap B) \]
+                </li>
+                <li>
+                    Simplify:
+                    \[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+                    <strong>(Q.E.D.)</strong>
+                </li>
+            </ol>
+
+            <hr style="margin: 25px 0;">
+
+            <h3>Derivation 2: Subadditivity (Boole's Inequality)</h3>
+            <p>
+                This property states that the probability of a union of events is at most the sum of their individual probabilities (even if they overlap).
+                \[ P(\bigcup_{i=1}^{\infty} A_i) \le \sum_{i=1}^{\infty} P(A_i) \]
+            </p>
+            <p><strong>Proof:</strong></p>
+            <ol>
+                <li>
+                    We construct a new sequence of <strong>disjoint</strong> sets \( B_i \) that cover exactly the same area as \( A_i \):
+                    <ul>
+                        <li>\( B_1 = A_1 \)</li>
+                        <li>\( B_2 = A_2 \setminus A_1 \) (Part of \( A_2 \) not in \( A_1 \))</li>
+                        <li>\( B_3 = A_3 \setminus (A_1 \cup A_2) \)</li>
+                        <li>...and so on.</li>
+                    </ul>
+                </li>
+                <li>
+                    By construction, \( B_i \) are disjoint, and \( \bigcup B_i = \bigcup A_i \).
+                </li>
+                <li>
+                    Also by construction, \( B_i \subseteq A_i \), which implies \( P(B_i) \le P(A_i) \).
+                </li>
+                <li>
+                    Using Axiom 3 (Additivity) on the disjoint sets \( B_i \):
+                    \[ P(\bigcup A_i) = P(\bigcup B_i) = \sum P(B_i) \]
+                </li>
+                <li>
+                    Since \( P(B_i) \le P(A_i) \), we can substitute the inequality into the sum:
+                    \[ \sum P(B_i) \le \sum P(A_i) \]
+                </li>
+                <li>
+                    Therefore:
+                    \[ P(\bigcup_{i=1}^{\infty} A_i) \le \sum_{i=1}^{\infty} P(A_i) \]
+                    <strong>(Q.E.D.)</strong>
+                </li>
+            </ol>
+        </section>
+
+    </main>
+
+    <script src="../js/nav-loader.js" defer></script>
+
+</body>
+</html>

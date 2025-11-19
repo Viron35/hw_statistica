@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 10</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
+
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Homework 10</h1>
+        </header>
+
+        <section class="card">
+            
+            <h2>Assignment: Poisson Arrival (Jump) Process Simulation</h2>
+            <p>
+                This assignment simulates a counting process \( \{N(t), t \ge 0\} \) over a time 
+                interval \( T \). Events occur independently and uniformly at a constant average 
+                rate \( \lambda \).
+            </p>
+
+            <h3>1. Approximation Method (Bernoulli to Poisson)</h3>
+            <p>
+                To simulate this continuous process using a computer (which is discrete), we 
+                divide the time interval \( T \) into \( n \) very small subintervals of length \( \Delta t = T/n \).
+            </p>
+            <p>
+                In each subinterval, we perform a <strong>Bernoulli trial</strong>:
+            </p>
+            <ul>
+                <li>
+                    Probability of success (event occurs): \( p = \lambda \cdot \Delta t = \lambda / n \).
+                </li>
+                <li>
+                    Probability of failure (no event): \( 1 - p \).
+                </li>
+            </ul>
+            <p>
+                <strong>The Logic:</strong> If \( n \) is very large (and thus \( \Delta t \) very small), 
+                the probability of getting <em>more than one</em> event in a single subinterval 
+                becomes negligible. The sum of these independent Bernoulli trials converges to a 
+                <strong>Poisson Process</strong>.
+            </p>
+
+            <h3>2. Analysis of the Resulting Process</h3>
+            <p>
+                The process generated is an approximation of the <strong>Homogeneous Poisson Process</strong>. 
+                It has the following theoretical properties:
+            </p>
+            <ul>
+                <li>
+                    <strong>Counting Process:</strong> \( N(t) \) represents the total number of 
+                    arrivals up to time \( t \). It is a non-decreasing "step" function (as seen in the plot below).
+                </li>
+                <li>
+                    <strong>Independent Increments:</strong> The number of events in disjoint time 
+                    intervals are independent (the process is "memoryless").
+                </li>
+                <li>
+                    <strong>Poisson Distribution:</strong> The total number of events in any interval of 
+                    length \( t \) follows a Poisson distribution with parameter \( \lambda t \): 
+                    \( P(N(t)=k) = e^{-\lambda t} \frac{(\lambda t)^k}{k!} \).
+                </li>
+                <li>
+                    <strong>Inter-arrival Times:</strong> The time between consecutive jumps is 
+                    exponentially distributed with parameter \( \lambda \).
+                </li>
+            </ul>
+            <p>
+                <strong>Meaning of \( \lambda \) (Lambda):</strong> This is the <strong>rate intensity</strong>. 
+                It represents the expected average number of events per unit of time. 
+                For example, if \( \lambda = 50 \) and \( T=1 \), we expect roughly 50 jumps in the graph.
+            </p>
+
+        </section>
+
+        <section class="card">
+            <h2>Interactive Simulation</h2>
+            
+            <div class="interactive-demo">
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simLambda">Rate (\( \lambda \)):</label>
+                        <input type="number" id="simLambda" value="50" min="1">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simN">Subintervals (\( n \)):</label>
+                        <input type="number" id="simN" value="2000" min="100">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simT">Time Horizon (\( T \)):</label>
+                        <input type="number" id="simT" value="1" readonly style="background-color: #e9ecef;">
+                    </div>
+                </div>
+                
+                <div class="demo-group">
+                    <button id="runSimulationBtn">Run Simulation</button>
+                </div>
+
+                <div class="demo-results">
+                    <div class="result-box">
+                        <h4>Poisson Process Trajectories (Sample Paths)</h4>
+                        <canvas id="poissonChart"></canvas>
+                        
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            <strong>What to observe:</strong> This is a "Jump Process". The lines stay flat 
+                            (no activity) and suddenly jump up by 1 (an event). 
+                            The red dashed line represents the theoretical expected rate \( E[N(t)] = \lambda t \). 
+                            The generated paths (blue) "wiggle" around this average line.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+    </main>
+
+    <script src="../js/nav-loader.js" defer></script>
+    <script src="../js/hw10.js"></script>
+
+</body>
+</html>
