@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Per aggiungere HW8:
         { text: "Homework 8", href: "pages/hw8.html" },
         { text: "Homework 9", href: "pages/hw9.html" },
-        { text: "Homework 10", href: "pages/hw10.html" }
+        { text: "Homework 10", href: "pages/hw10.html" },
+        { text: "Homework 11", href: "pages/hw11.html" }
+
     ];
 
     // --- 2. Logica di Costruzione (non toccare) ---

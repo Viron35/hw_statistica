@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 11</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+    <aside id="sidebar-placeholder" class="sidebar"></aside>
+
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Homework 11</h1>
+        </header>
+
+        <section class="card">
+            
+            <h2>SDE Simulation with Euler-Maruyama</h2>
+            <p>
+                The goal of this assignment is to simulate a **Wiener Process** (Brownian Motion) 
+                using a numerical method for Stochastic Differential Equations (SDEs) called the 
+                <strong>Euler-Maruyama method</strong>.
+            </p>
+            <p>
+                As an optional task, the simulator has been generalized to handle other common SDEs, 
+                such as Geometric Brownian Motion (used in finance) and Ornstein-Uhlenbeck (mean-reverting).
+            </p>
+
+            <h3>1. Stochastic Differential Equations (SDE)</h3>
+            <p>
+                A generic SDE usually takes the form:
+            </p>
+            \[ dX_t = \mu(X_t, t)dt + \sigma(X_t, t)dW_t \]
+            <p>
+                Where:
+            </p>
+            <ul>
+                <li>\( X_t \): The state of the process at time \( t \).</li>
+                <li>\( \mu(X_t, t) \): The <strong>Drift</strong> term (deterministic part).</li>
+                <li>\( \sigma(X_t, t) \): The <strong>Diffusion</strong> term (stochastic part).</li>
+                <li>\( dW_t \): The increment of a Wiener process (Brownian motion).</li>
+            </ul>
+
+            <h3>2. The Euler-Maruyama Method</h3>
+            <p>
+                Just as the Euler method approximates ordinary differential equations, the 
+                Euler-Maruyama method approximates SDEs.
+            </p>
+            <p>
+                We discretize time into steps of size \( \Delta t \). The recursive formula to find the next value \( X_{n+1} \) is:
+            </p>
+            \[ X_{n+1} = X_n + \mu(X_n, t_n)\Delta t + \sigma(X_n, t_n)\Delta W_n \]
+            <p>
+                Where \( \Delta W_n \) is a random increment drawn from a Normal distribution:
+                \( \Delta W_n \sim \mathcal{N}(0, \Delta t) \). 
+                <br>
+                In code, we simulate this as \( \sqrt{\Delta t} \cdot Z \), where \( Z \sim \mathcal{N}(0, 1) \).
+            </p>
+
+            <h3>3. Models Implemented</h3>
+            <ul style="margin-top: 10px;">
+                <li>
+                    <strong>Wiener Process (Standard Brownian Motion):</strong>
+                    <br>\( dX_t = 0 dt + 1 dW_t \) 
+                    <br>(Drift \(\mu=0\), Diffusion \(\sigma=1\)).
+                </li>
+                <li>
+                    <strong>Geometric Brownian Motion (Black-Scholes):</strong>
+                    <br>\( dX_t = \mu X_t dt + \sigma X_t dW_t \)
+                    <br>(Used for stock prices. The noise scales with the value \(X\)).
+                </li>
+                <li>
+                    <strong>Ornstein-Uhlenbeck (Mean Reverting):</strong>
+                    <br>\( dX_t = \theta(\mu - X_t) dt + \sigma dW_t \)
+                    <br>(The process tends to drift back towards a long-term mean \(\mu\)).
+                </li>
+            </ul>
+
+        </section>
+
+        <section class="card">
+            <h2>SDE Simulator</h2>
+            
+            <div class="interactive-demo">
+                
+                <div class="demo-group" style="background: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <label for="sdeModel">Select SDE Model:</label>
+                    <select id="sdeModel" style="width: 100%; padding: 8px; font-size: 1em;">
+                        <option value="wiener">Wiener Process (Standard Brownian Motion)</option>
+                        <option value="gbm">Geometric Brownian Motion (Black-Scholes)</option>
+                        <option value="ou">Ornstein-Uhlenbeck (Mean Reverting)</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simT">Time Horizon (\(T\)):</label>
+                        <input type="number" id="simT" value="1" min="0.1" step="0.1">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simN">Steps (\(N\)):</label>
+                        <input type="number" id="simN" value="1000" min="100">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simM">Trajectories (\(M\)):</label>
+                        <input type="number" id="simM" value="50" min="1">
+                    </div>
+                    <div class="demo-group" style="flex: 1;">
+                        <label for="simX0">Initial Value (\(X_0\)):</label>
+                        <input type="number" id="simX0" value="0">
+                    </div>
+                </div>
+
+                <div id="modelParams" style="display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px solid #ddd; padding-top: 15px; margin-top: 10px;">
+                    </div>
+                
+                <div class="demo-group" style="margin-top: 20px;">
+                    <button id="runSimulationBtn">Run Euler-Maruyama Simulation</button>
+                </div>
+
+                <div class="demo-results">
+                    <div class="result-box">
+                        <h4>SDE Trajectories (Sample)</h4>
+                        <canvas id="sdeChart"></canvas>
+                        <p style="font-style: italic; margin-top: 15px; font-size: 0.9em;">
+                            Sample paths generated using the Euler-Maruyama approximation.
+                        </p>
+                    </div>
+
+                    <div class="result-box">
+                        <h4>Distribution of Final Values \(X_T\)</h4>
+                        <canvas id="histogramChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+    </main>
+
+    <script src="../js/nav-loader.js" defer></script>
+    <script src="../js/hw11.js"></script>
+
+</body>
+</html>
